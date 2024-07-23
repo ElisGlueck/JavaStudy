@@ -1,5 +1,8 @@
 package JavaLessons.Lesson1;
 
+import java.util.Arrays;
+import java.util.Random;
+
 public class Lesson3 {
     public static void main(String[] args) {
         square();
@@ -8,6 +11,9 @@ public class Lesson3 {
         multiplyUnderSix();
         multiplyUnderSixV2();
         crossArray();
+        lenArray(6, 15);
+        MinMaxArray(10);
+        MinMaxArrayV2(4)
     }
 
     public static void square() {
@@ -91,8 +97,39 @@ public static void crossArray() {
     }
 }
 // Написать метод, принимающий на вход два аргумента: len и initialValue, и возвращающий одномерный массив типа int длиной len, каждая ячейка которого равна initialValue;
-
+public static void lenArray(int len, int initialValue) {
+        int[] arr = new int[len];
+        for (int i = 0; i < arr.length; i++) {
+          arr[i] = initialValue;
+            System.out.print(arr[i] + " ");
+        }
+    System.out.println();
+}
 // Задать одномерный массив и найти в нем минимальный и максимальный элементы ;
+    public static int[] MinMaxArray(int length) {
+        int[] arr = new int[length];
+        Random random = new Random();
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = random.nextInt();
+        }
+        System.out.println(Arrays.toString(arr));
+        Arrays.sort(arr);
+        System.out.println(Arrays.toString(arr));
+        return arr;
+    }
+    public static int[] MinMaxArrayV2(int length) {
+        int[] arr = new int[length];
+        Random random = new Random();
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = random.nextInt();
+        }
+        System.out.println(Arrays.toString(arr));
+        for (int i =0; i < arr.length; i++) {
+
+        }
+        System.out.println(Arrays.toString(arr));
+        return arr;
+    }
 // Написать метод, в который передается не пустой одномерный целочисленный массив, метод должен вернуть true, если в массиве есть место, в котором сумма левой и правой части массива равны.
 // Написать метод, которому на вход подается одномерный массив и число n (может быть положительным, или отрицательным), при этом метод должен сместить все элементы массива на n позиций. Элементы смещаются циклично. Для усложнения задачи нельзя пользоваться вспомогательными массивами. Примеры: [ 1, 2, 3 ] при n = 1 (на один вправо) -> [ 3, 1, 2 ]; [ 3, 5, 6, 1] при n = -2 (на два влево) -> [ 6, 1, 3, 5 ]. При каком n в какую сторону сдвиг можете выбирать сами.
 
