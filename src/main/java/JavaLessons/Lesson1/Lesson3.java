@@ -12,8 +12,10 @@ public class Lesson3 {
         multiplyUnderSixV2();
         crossArray();
         lenArray(6, 15);
-        MinMaxArray(10);
-        MinMaxArrayV2(4)
+        minMaxArray(10);
+        minMaxArrayV2(4);
+        sumTwoPartArray(5, 2, 4, 7, 4);
+        shiftArray(1, 5, 7);
     }
 
     public static void square() {
@@ -106,31 +108,50 @@ public static void lenArray(int len, int initialValue) {
     System.out.println();
 }
 // Задать одномерный массив и найти в нем минимальный и максимальный элементы ;
-    public static int[] MinMaxArray(int length) {
+    public static int[] minMaxArray(int length) {
         int[] arr = new int[length];
         Random random = new Random();
         for (int i = 0; i < arr.length; i++) {
             arr[i] = random.nextInt();
         }
-        System.out.println(Arrays.toString(arr));
         Arrays.sort(arr);
         System.out.println(Arrays.toString(arr));
         return arr;
     }
-    public static int[] MinMaxArrayV2(int length) {
+    public static int[] minMaxArrayV2(int length) {
         int[] arr = new int[length];
         Random random = new Random();
         for (int i = 0; i < arr.length; i++) {
             arr[i] = random.nextInt();
         }
         System.out.println(Arrays.toString(arr));
-        for (int i =0; i < arr.length; i++) {
-
+        int max = arr[0];
+        int min = arr[0];
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] > max) {
+                max = arr[i];
+                }
+            else if (arr[i] < min) {
+                min = arr[i];
+            }
         }
-        System.out.println(Arrays.toString(arr));
+        System.out.println("Max is " + max + ". Min is " + min);
         return arr;
     }
 // Написать метод, в который передается не пустой одномерный целочисленный массив, метод должен вернуть true, если в массиве есть место, в котором сумма левой и правой части массива равны.
+    public static void sumTwoPartArray(int... arr) {
+        System.out.println(Arrays.toString(arr));
+    }
 // Написать метод, которому на вход подается одномерный массив и число n (может быть положительным, или отрицательным), при этом метод должен сместить все элементы массива на n позиций. Элементы смещаются циклично. Для усложнения задачи нельзя пользоваться вспомогательными массивами. Примеры: [ 1, 2, 3 ] при n = 1 (на один вправо) -> [ 3, 1, 2 ]; [ 3, 5, 6, 1] при n = -2 (на два влево) -> [ 6, 1, 3, 5 ]. При каком n в какую сторону сдвиг можете выбирать сами.
-
+    public static void shiftArray(int n, int... arr) {
+        System.out.println(Arrays.toString(arr));
+        int a = arr[0];
+        int b = arr[0];
+        for (int i = 0; i < arr.length; i++) {
+            a = arr[i + n];
+            arr[i + n] = arr[i];
+            arr[arr.length - i] = arr[i + n];
+        }
+        System.out.println(Arrays.toString(arr));
+}
 }
