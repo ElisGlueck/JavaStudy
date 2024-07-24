@@ -2,6 +2,7 @@ package JavaLessons.Lesson1;
 
 import java.util.Arrays;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Lesson3 {
     public static void main(String[] args) {
@@ -14,8 +15,10 @@ public class Lesson3 {
         lenArray(6, 15);
         minMaxArray(10);
         minMaxArrayV2(4);
-        sumTwoPartArray(5, 2, 4, 7, 4);
-        shiftArray(1, 5, 7);
+        System.out.println(sumTwoPartArray(3, 4, 5, 7, 2, 2, 1));
+        System.out.println(sumTwoPartArrayV2(3, 4, 5, 7, 2, 2, 1));
+        shiftArray(1, 5, 7, 6, 6);
+        shiftArrayV2(1, 5, 7, 6, 2);
     }
 
     public static void square() {
@@ -139,19 +142,65 @@ public static void lenArray(int len, int initialValue) {
         return arr;
     }
 // Написать метод, в который передается не пустой одномерный целочисленный массив, метод должен вернуть true, если в массиве есть место, в котором сумма левой и правой части массива равны.
-    public static void sumTwoPartArray(int... arr) {
-        System.out.println(Arrays.toString(arr));
+    public static boolean sumTwoPartArray(int ... arr) {
+        int totalSum = 0;
+        for (int num : arr) {
+            totalSum += num;
+        }
+        int leftSum = 0;
+        for (int i = 0; i < arr.length; i++) {
+            totalSum -= arr[i];
+            leftSum += arr[i];
+            if (leftSum == totalSum) {
+                return true;
+            }
+        }
+        return false;
     }
+
+    public static boolean sumTwoPartArrayV2(int... arr) {
+        for (int i = 0; i < arr.length; i++){
+            int leftSum = 0;
+            int rightSum = 0;
+            for (int j = 0; j < i; j++) {
+               leftSum += arr[j];
+            }
+            for (int j = i; j < arr.length; j++) {
+                rightSum += arr[j];
+            }
+            if (leftSum == rightSum) {
+                System.out.println(i);
+                return true;
+            }
+            }
+        return false;
+        }
 // Написать метод, которому на вход подается одномерный массив и число n (может быть положительным, или отрицательным), при этом метод должен сместить все элементы массива на n позиций. Элементы смещаются циклично. Для усложнения задачи нельзя пользоваться вспомогательными массивами. Примеры: [ 1, 2, 3 ] при n = 1 (на один вправо) -> [ 3, 1, 2 ]; [ 3, 5, 6, 1] при n = -2 (на два влево) -> [ 6, 1, 3, 5 ]. При каком n в какую сторону сдвиг можете выбирать сами.
     public static void shiftArray(int n, int... arr) {
         System.out.println(Arrays.toString(arr));
-        int a = arr[0];
-        int b = arr[0];
+//        Scanner scanner = new Scanner(System.in);
         for (int i = 0; i < arr.length; i++) {
-            a = arr[i + n];
-            arr[i + n] = arr[i];
-            arr[arr.length - i] = arr[i + n];
+            if ((i + n) >= arr.length) {
+                arr[i] = arr[arr.length - i - n];
+            }
+            else arr[i] = arr[i + n];
         }
+//        int a = arr[0];
+//        int b = arr[0];
+//        for (int i = 0; i < arr.length; i++) {
+//            a = arr[i + n];
+//            arr[i + n] = arr[i];
+//            arr[arr.length - i] = arr[i + n];
+//        }
         System.out.println(Arrays.toString(arr));
-}
+ }
+    public static void shiftArrayV2(int n, int... arr) {
+        System.out.println(Arrays.toString(arr));
+        int[] temp = new int[arr.length];
+        for (int i = 0; i < arr.length; i++) {
+            temp[(i + n) % arr.length] = arr[i];
+        }
+        System.arraycopy(temp, 0, arr, 0, arr.length);
+        System.out.println(Arrays.toString(arr));
+    }
 }
