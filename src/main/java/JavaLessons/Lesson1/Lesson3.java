@@ -17,8 +17,9 @@ public class Lesson3 {
         minMaxArrayV2(4);
         System.out.println(sumTwoPartArray(3, 4, 5, 7, 2, 2, 1));
         System.out.println(sumTwoPartArrayV2(3, 4, 5, 7, 2, 2, 1));
-        shiftArray(1, 5, 7, 6, 6);
-        shiftArrayV2(1, 5, 7, 6, 2);
+        shiftArray(5, 5, 7, 6, 6);
+        shiftArrayV2(3, 5, 7, 6, 2);
+        shiftArrayV3(5, 10, 34, 5, 12, 6, 3, 5);
     }
 
     public static void square() {
@@ -178,22 +179,15 @@ public static void lenArray(int len, int initialValue) {
 // Написать метод, которому на вход подается одномерный массив и число n (может быть положительным, или отрицательным), при этом метод должен сместить все элементы массива на n позиций. Элементы смещаются циклично. Для усложнения задачи нельзя пользоваться вспомогательными массивами. Примеры: [ 1, 2, 3 ] при n = 1 (на один вправо) -> [ 3, 1, 2 ]; [ 3, 5, 6, 1] при n = -2 (на два влево) -> [ 6, 1, 3, 5 ]. При каком n в какую сторону сдвиг можете выбирать сами.
     public static void shiftArray(int n, int... arr) {
         System.out.println(Arrays.toString(arr));
-//        Scanner scanner = new Scanner(System.in);
-        for (int i = 0; i < arr.length; i++) {
-            if ((i + n) >= arr.length) {
-                arr[i] = arr[arr.length - i - n];
+        for (int i = 0; i < n; i++) {
+            int last = arr[arr.length - 1];
+            for (int j = arr.length - 1; j > 0; j--) {
+                arr[j] = arr[j - 1];
             }
-            else arr[i] = arr[i + n];
+            arr[0] = last;
         }
-//        int a = arr[0];
-//        int b = arr[0];
-//        for (int i = 0; i < arr.length; i++) {
-//            a = arr[i + n];
-//            arr[i + n] = arr[i];
-//            arr[arr.length - i] = arr[i + n];
-//        }
         System.out.println(Arrays.toString(arr));
- }
+    }
     public static void shiftArrayV2(int n, int... arr) {
         System.out.println(Arrays.toString(arr));
         int[] temp = new int[arr.length];
@@ -202,5 +196,27 @@ public static void lenArray(int len, int initialValue) {
         }
         System.arraycopy(temp, 0, arr, 0, arr.length);
         System.out.println(Arrays.toString(arr));
+    }
+    public static void shiftArrayV3(int n, int... arr) {
+        System.out.println(Arrays.toString(arr));
+        int length = arr.length;
+        n = n % length;
+        if (n < 0) {
+            n += length;
+        }
+        reverse(arr, 0, length - 1);
+        reverse(arr, 0, n - 1);
+        reverse(arr, n, length - 1);
+        System.out.println(Arrays.toString(arr));
+    }
+
+    private static void reverse(int[] arr, int start, int end) {
+        while (start < end) {
+            int temp = arr[start];
+            arr[start] = arr[end];
+            arr[end] = temp;
+            start++;
+            end--;
+        }
     }
 }
