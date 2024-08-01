@@ -26,7 +26,6 @@ public class Lesson4 {
 
     public static void play() {
         while (true) {
-            chooseFieldSize();
             chooseTheDot();
             playRound();
             System.out.printf("Score Human: %d; Score Computer: %d", humanScore, computerScore);
@@ -40,18 +39,55 @@ public class Lesson4 {
 
     private static void playRound() {
         System.out.printf("Round %d starts\n", ++roundCounter);
+        chooseFieldSize();
         printField();
         if (humanDot == dotX) {
-            humanFirstTurn;
+            humanFirstTurn();
             } else {
                 computerFirstTurn();
             }
         }
+
+    private static void humanFirstTurn() {
+        while (true) {
+            humanTurn();
+            printField();
+            if (checkGame(humanDot)) break;
+            computerTurn();
+            printField();
+            if (checkGame(computerDot)) break;
+        }
+    }
+
+    private static void computerFirstTurn() {
+        while (true) {
+            computerTurn();
+            printField();
+            if (checkGame(computerDot)) break;
+            humanTurn();
+            printField();
+            if (checkGame(humanDot)) break;
+        }
+    }
+
+    private static boolean checkGame(char dot) {
+        if (checkWin(dot)) {
+            if (dot == humanDot) {
+                System.out.println("The Human win!");
+                humanScore++;
+            } else {
+                System.out.println("The computer wins!");
+                computerScore++;
+            }
+            return true;
+        }
+        if (checkDraw()) return true;
+        return false;
     }
 
     private static void chooseTheDot() {
         System.out.println("Please choose the dot type by typing 'X' or anything else");
-        if (scanner.next().toLowerCase().equals("x")) {
+        if (Scanner.next().toLowerCase().equals("x")) {
             humanDot = dotX;
             computerDot = dot0;
         } else {
@@ -127,7 +163,5 @@ public class Lesson4 {
     private static void checkWin() {
 
     }
-
-    private static void checkTheEnd() {}
 
 }
