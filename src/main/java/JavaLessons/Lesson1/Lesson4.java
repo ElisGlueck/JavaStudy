@@ -28,7 +28,7 @@ public class Lesson4 {
         while (true) {
             chooseTheDot();
             playRound();
-            System.out.printf("Score Human: %d; Score Computer: %d", humanScore, computerScore);
+            System.out.printf("Score Human: %d; Score Computer: %d\n", humanScore, computerScore);
             System.out.print("Do you want to play again? Y or N");
             if (!scanner.next().toLowerCase().equals("y")) {
                 System.out.println("Good bye!");
@@ -87,7 +87,7 @@ public class Lesson4 {
 
     private static void chooseTheDot() {
         System.out.println("Please choose the dot type by typing 'X' or anything else");
-        if (Scanner.next().toLowerCase().equals("x")) {
+        if (scanner.next().toLowerCase().equals("x")) {
             humanDot = dotX;
             computerDot = dot0;
         } else {
@@ -97,8 +97,6 @@ public class Lesson4 {
     }
 
     private static void chooseFieldSize() {
-        int fieldSizeX;
-        int fieldSizeY;
         System.out.println("Please choose the field size by typing two numbers split by whitespace as X and Y sizes");
         fieldSizeX = scanner.nextInt();
         fieldSizeY = scanner.nextInt();
@@ -150,18 +148,34 @@ public class Lesson4 {
         int x;
         int y;
         do {
-            x = random.nextInt();
-            y = random.nextInt();
+            x = random.nextInt(fieldSizeX);
+            y = random.nextInt(fieldSizeY);
         } while (!isCellValid(x, y) || !isCellEmpty(x, y));
         field[x][y] = computerDot;
     }
 
-    private static void checkDraw() {
-
+    private static boolean checkDraw() {
+        for (int x = 0; x < fieldSizeX; x++) {
+            for (int y = 0; y < fieldSizeY; y++) {
+                if (isCellEmpty(x, y)) return false;
+                
+            }
+            
+        }
+        System.out.println("It's a draw");
+        return true;
     }
 
-    private static void checkWin() {
+    private static boolean checkWin(char dot) {
+        for (int x = 0; x < fieldSizeX; x++) {
+            for (int y = 0; y < fieldSizeY; y++) {
+                if (x == y) return true;
+                if ()
 
+            }
+
+        }
+    return false;
     }
 
 }
