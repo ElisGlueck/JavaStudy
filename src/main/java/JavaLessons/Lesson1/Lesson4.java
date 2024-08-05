@@ -40,6 +40,7 @@ public class Lesson4 {
     private static void playRound() {
         System.out.printf("Round %d starts\n", ++roundCounter);
         chooseFieldSize();
+        chooseWinLength();
         printField();
         if (humanDot == dotX) {
             humanFirstTurn();
@@ -109,6 +110,27 @@ public class Lesson4 {
         }
     }
 
+    private static void chooseWinLength() {
+        int winLengthInput;
+        while (true) {
+            System.out.println("Please choose the win length by typing a number (must be between 3 and " + Math.min(fieldSizeX, fieldSizeY) + ")");
+
+            if (scanner.hasNextInt()) {
+                winLengthInput = scanner.nextInt();
+
+                if (winLengthInput >= 3 && winLengthInput <= fieldSizeX && winLengthInput <= fieldSizeY) {
+                    winLength = winLengthInput;
+                    break;
+                } else {
+                    System.out.println("Invalid win length. Please enter a number between 3 and " + Math.min(fieldSizeX, fieldSizeY) + ".");
+                }
+            } else {
+                System.out.println("Invalid input. Please enter a valid number.");
+                scanner.next();
+            }
+        }
+    }
+
     private static void printField() {
         for (int x = 0; x <= fieldSizeX; x++) {
             System.out.print(x + " ");
@@ -145,8 +167,51 @@ public class Lesson4 {
     }
 
     private static void computerTurn() {
-        int x;
-        int y;
+        if (findAndPlaceDot(computerDot, winLength - 1)) return;
+
+        if (findAndPlaceDot(humanDot, winLength - 1)) return;
+
+        if (findAndPlaceDot(humanDot, winLength - 2)) return;
+
+        makeRandomMove();
+    }
+
+    private static boolean findAndPlaceDot(char dot, int length) {
+        for (int x = 0; x < fieldSizeX; x++) {
+            for (int y = 0; y < fieldSizeY; y++) {
+                if (isCellEmpty(x, y)) {
+                    if (checkAndPlaceDot(dot, length, x, y, 1, 0) ||
+                            checkAndPlaceDot(dot, length, x, y, 0, 1) ||
+                            checkAndPlaceDot(dot, length, x, y, 1, 1) ||
+                            checkAndPlaceDot(dot, length, x, y, 1, -1)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    private static boolean checkAndPlaceDot(char dot, int length, int startX, int startY, int dx, int dy) {
+        int count = 0;
+        for (int i = 1; i < winLength; i++) {
+            int x = startX + i * dx;
+            int y = startY + i * dy;
+            if (isCellValid(x, y) && field[x][y] == dot) {
+                count++;
+            } else {
+                break;
+            }
+        }
+        if (count == length) {
+            field[startX][startY] = computerDot;
+            return true;
+        }
+        return false;
+    }
+
+    private static void makeRandomMove() {
+        int x, y;
         do {
             x = random.nextInt(fieldSizeX);
             y = random.nextInt(fieldSizeY);
@@ -169,13 +234,52 @@ public class Lesson4 {
     private static boolean checkWin(char dot) {
         for (int x = 0; x < fieldSizeX; x++) {
             for (int y = 0; y < fieldSizeY; y++) {
-                if (x == y) return true;
-                if ()
+                if (y + winLength <= fieldSizeY) {
+                    boolean win = true;
+                    for (int i = 0; i < winLength; i++) {
+                        if (field[x][y + i] != dot) {
+                            win = false;
+                            break;
+                        }
+                    }
+                    if (win) return true;
+                }
 
+                if (x + winLength <= fieldSizeX) {
+                    boolean win = true;
+                    for (int i = 0; i < winLength; i++) {
+                        if (field[x + i][y] != dot) {
+                            win = false;
+                            break;
+                        }
+                    }
+                    if (win) return true;
+                }
+
+                if (x + winLength <= fieldSizeX && y + winLength <= fieldSizeY) {
+                    boolean win = true;
+                    for (int i = 0; i < winLength; i++) {
+                        if (field[x + i][y + i] != dot) {
+                            win = false;
+                            break;
+                        }
+                    }
+                    if (win) return true;
+                }
+
+                if (x + winLength <= fieldSizeX && y - winLength >= -1) {
+                    boolean win = true;
+                    for (int i = 0; i < winLength; i++) {
+                        if (field[x + i][y - i] != dot) {
+                            win = false;
+                            break;
+                        }
+                    }
+                    if (win) return true;
+                }
             }
-
         }
-    return false;
+        return false;
     }
 
 }
