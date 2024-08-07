@@ -45,6 +45,7 @@ public class Employee {
         return Period.between(dataOfBirth, LocalDate.now()).getYears();
     }
 
+    @Override
     public String toString() {
         return String.format("Employee full name: %s\nAge: %d\nJob Title: %s\nE-mail: %s\nPhone Number: %s\nSalary: %d\n", fullName, getAge(), jobTitle, email, phoneNumber, salary);
     }
