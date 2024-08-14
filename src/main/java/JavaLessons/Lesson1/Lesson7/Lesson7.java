@@ -13,19 +13,36 @@ package JavaLessons.Lesson1.Lesson7;
 
 public class Lesson7 {
 
-    Cat[] cats = {
-            new Cat("Barsik", 20),
-            new Cat("Murzik", 15),
-            new Cat("Murka", 50),
-            new Cat("Dymka", 15),
-            new Cat("Nura", 30)
-    };
+    public static void main(String[] args) {
 
-    Bowl bowl = new Bowl();
-    bowl.putFood(45);
+        Cat[] cats = {
+                new Cat("Barsik", 20),
+                new Cat("Murzik", 15),
+                new Cat("Murka", 50),
+                new Cat("Dymka", 15),
+                new Cat("Nura", 30)
+        };
 
-    for (Cat cat : cats) {
-        cat.eat(bowl);
+        Bowl bowl = new Bowl(0);
+        bowl.putFood(55);
+
+        for (Cat cat : cats) {
+            cat.eat(bowl);
+        }
+
+        boolean anyHungry = false;
+        for (Cat cat : cats) {
+            if (cat.isHungry()) {
+                System.out.printf("%s is still hungry.\n", cat.getName());
+                anyHungry = true;
+            }
+        }
+
+        if (!anyHungry) {
+            System.out.println("All cats are well-fed!");
+        }
+
     }
+
 
 }
