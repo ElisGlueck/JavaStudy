@@ -57,8 +57,6 @@ public class GameMap extends JPanel {
 
         private void playRound() {
             System.out.printf("Round %d starts\n", ++roundCounter);
-            chooseFieldSize();
-            chooseWinLength();
             printField();
             if (dotHuman == dotX) {
                 humanFirstTurn();
@@ -123,39 +121,6 @@ public class GameMap extends JPanel {
             }
         }
 
-        private void chooseFieldSize() {
-            System.out.println("Please choose the field size by typing two numbers split by whitespace as X and Y sizes");
-            fieldSizeX = scanner.nextInt();
-            fieldSizeY = scanner.nextInt();
-            field = new char[fieldSizeX][fieldSizeY];
-            for (int x = 0; x < fieldSizeX; x++) {
-                for (int y = 0; y < fieldSizeY; y++) {
-                    field[x][y] = dotEmpty;
-                }
-
-            }
-        }
-
-        private void chooseWinLength() {
-            int winLengthInput;
-            while (true) {
-                System.out.println("Please choose the win length by typing a number (must be between 3 and " + Math.min(fieldSizeX, fieldSizeY) + ")");
-
-                if (scanner.hasNextInt()) {
-                    winLengthInput = scanner.nextInt();
-
-                    if (winLengthInput >= 3 && winLengthInput <= fieldSizeX && winLengthInput <= fieldSizeY) {
-                        winLength = winLengthInput;
-                        break;
-                    } else {
-                        System.out.println("Invalid win length. Please enter a number between 3 and " + Math.min(fieldSizeX, fieldSizeY) + ".");
-                    }
-                } else {
-                    System.out.println("Invalid input. Please enter a valid number.");
-                    scanner.next();
-                }
-            }
-        }
 
         private void printField() {
             for (int x = 0; x <= fieldSizeX; x++) {

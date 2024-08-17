@@ -33,7 +33,9 @@ public class GameWindow extends JFrame {
 
     }
 
-    public void startGame(int gameMode, int fieldSize, int winLength) {}
+    public void startGame(int gameMode, int fieldSize, int winLength) {
+        System.out.printf("Mode: %s, Field size: %d, Win length: %d\n", gameMode, fieldSize, winLength);
+    }
 
 
 
