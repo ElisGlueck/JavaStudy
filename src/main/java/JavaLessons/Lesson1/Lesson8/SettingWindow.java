@@ -107,7 +107,7 @@ public class SettingWindow extends JFrame {
     }
         int fieldSize = Integer.parseInt(textFieldSize.getText());
         int winLength = Integer.parseInt(textWinLength.getText());
-    gameWindow.startGame(gameMode, fieldSize, winLength);
+    gameWindow.startNewGame(gameMode, fieldSize, winLength);
     setVisible(false);
 
 }

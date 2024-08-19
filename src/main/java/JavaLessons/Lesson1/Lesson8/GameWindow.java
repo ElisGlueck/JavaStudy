@@ -5,40 +5,38 @@ import java.awt.*;
 
 public class GameWindow extends JFrame {
 
-    private static final int windowHeight = 640;
-    private static final int windowWidth = 600;
-    private GameMap gameMap;
+    private final int WINDOW_WIDTH = 507;
+    private final int WINDOW_HEIGHT = 555;
+    private final SettingWindow settingsWindow;
+    private final GameMap gameMap;
 
     public GameWindow() {
+        setTitle("Tic Tac Toe");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(windowWidth, windowHeight);
+        setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         setLocationRelativeTo(null);
-        setTitle("TicTacToe");
         setResizable(false);
-        JButton btnYes = new JButton("Yes");
-        add(btnYes, BorderLayout.CENTER);
-        JButton btnExit = new JButton("Exit");
-        add(btnExit, BorderLayout.EAST);
 
-        JLabel label = new Label("Do you want to play?");
-        label.setFont(new Font("Arial", Font.BOLD, 60));
-        add(label, BorderLayout.NORTH);
-
+        settingsWindow = new SettingWindow(this);
         gameMap = new GameMap();
-        SettingWindow settings = new SettingWindow(this);
-        add(gameMap, BorderLayout.CENTER);
-        setVisible(true);
-        btnYes.addActionListener(e -> settings.setVisible(true));
+
+        JButton btnStart = new JButton("Start new game");
+        btnStart.addActionListener(e -> settingsWindow.setVisible(true));
+
+        JButton btnExit = new JButton("Exit");
         btnExit.addActionListener(e -> System.exit(0));
 
+        JPanel panel = new JPanel(new GridLayout(1, 2));
+        panel.add(btnStart);
+        panel.add(btnExit);
+
+        add(panel, BorderLayout.SOUTH);
+        add(gameMap, BorderLayout.CENTER);
+
+        setVisible(true);
     }
 
-    public void startGame(int gameMode, int fieldSize, int winLength) {
+    public void startNewGame(int gameMode, int fieldSize, int winLength) {
         gameMap.startNewGame(gameMode, fieldSize, winLength);
-        System.out.printf("Mode: %s, Field size: %d, Win length: %d\n", gameMode, fieldSize, winLength);
     }
-
-
-
-
 }

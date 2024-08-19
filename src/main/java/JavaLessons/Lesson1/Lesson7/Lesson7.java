@@ -42,6 +42,7 @@ public class Lesson7 {
             System.out.println("All cats are well-fed!");
         }
 
+        System.out.printf("There is %d grams of food in the bowl now", bowl.getFoodAmount());
     }
 
 
