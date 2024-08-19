@@ -1,6 +1,7 @@
 package JavaLessons.Lesson1.Lesson8;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -35,10 +36,49 @@ public class GameMap extends JPanel {
         private static int computerScore;
         private static int roundCounter;
 
-        public GameMap() {}
+        public GameMap() {
+            isInitialized = false;
+        }
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            render(g);
+        }
+
+    private void render (Graphics g) {
+        if (!isInitialized) {
+            return;
+        }
+        int width = getWidth();
+        int height = getHeight();
+        cellWidth = width / fieldSizeX;
+        cellHeight = height / fieldSizeY;
+        g.setColor(Color.BLACK);
+
+        for (int i = 0; i < fieldSizeX; i++) {
+            int y = i * cellHeight;
+            g.drawLine(0, y, width, y);
+        }
+        for (int i = 0; 1 < fieldSizeX; i++) {
+            int x = i * cellHeight;
+            g.drawLine(x, 0, x, height);
+        }
+    }
+
+        public void startNewGame(int gameMode, int fieldSize, int winLength) {
+            this.gameMode = gameMode;
+            fieldSizeX = fieldSize;
+            fieldSizeY = fieldSize;
+            this.winLength = winLength;
+            playerNumTurn = 1;
+            field = new int[fieldSizeX][fieldSizeY];
+            isInitialized = true;
+            isGameOver = false;
+        }
 
 
-        public void main(String[] args) {
+    public void main(String[] args) {
             play();
         }
 
